@@ -32,76 +32,68 @@ function dragToScroll(el, { onStart, onMove, onEnd }) {
   el.addEventListener('click', (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
 }
 
-// ---------- Caroselli dei progetti (infiniti) ----------
-// Trucco: una copia dell'ultima foto va all'inizio e una della prima alla fine.
-// Quando arrivi su una copia, il carosello salta senza animazione sulla foto vera: il giro sembra continuo.
+// ---------- Caroselli dei progetti (infiniti, a scorrimento libero) ----------
+// Trucco: le foto vengono ripetute (una serie di copie prima, due dopo).
+// Quando ti avvicini a un bordo, il carosello salta di una serie intera: il salto non si vede e il giro sembra continuo.
 document.querySelectorAll('.carousel').forEach((carousel) => {
   const track = carousel.querySelector('.track');
-  const counter = carousel.querySelector('.counter');
   const real = [...track.children];
-  const total = real.length;
-  const loop = total > 1;
+  const n = real.length;
+  real.forEach((el, i) => { el.dataset.i = i; });   // serve al lightbox per sapere quale foto è
 
-  if (loop) {
-    const clone = (el) => {
-      const c = el.cloneNode(true);
-      c.classList.add('clone');
-      c.setAttribute('aria-hidden', 'true');
-      c.removeAttribute('loading');
-      return c;
-    };
-    track.prepend(clone(real[total - 1]));
-    track.append(clone(real[0]));
-  }
-  const slides = [...track.children];
-  const offset = loop ? 1 : 0;   // la prima foto vera è in posizione 1
-  const width = () => track.clientWidth;
-  const raw = () => Math.round(track.scrollLeft / width());
-  const jump = (i) => { track.style.scrollSnapType = 'none'; track.scrollLeft = i * width(); track.style.scrollSnapType = ''; };
-
-  const update = () => {
-    const i = raw();
-    if (counter) counter.textContent = loop ? `${((i - offset + total) % total) + 1} / ${total}` : '';
-    // l'altezza del carosello segue quella della foto visibile
-    const h = slides[Math.min(i, slides.length - 1)].getBoundingClientRect().height;
-    if (h) track.style.height = h + 'px';
+  const clone = (el) => {
+    const c = el.cloneNode(true);
+    c.classList.add('clone');
+    c.setAttribute('aria-hidden', 'true');
+    c.removeAttribute('loading');
+    return c;
   };
-  // se sei su una copia, salta alla foto vera corrispondente
+  track.prepend(...real.map(clone));
+  track.append(...real.map(clone), ...real.map(clone));
+
+  // larghezza di una serie di foto (si misura ogni volta: cambia mentre le immagini caricano)
+  const setWidth = () => track.children[n].offsetLeft - track.children[0].offsetLeft;
+  const wrapped = (x) => {
+    const w = setWidth();
+    if (!w) return x;
+    if (x < w * 0.5) return x + w;
+    if (x > w * 1.5) return x - w;
+    return x;
+  };
   const wrap = () => {
-    if (!loop || track.classList.contains('is-dragging')) return;
-    const i = raw();
-    if (i <= 0) jump(total);
-    else if (i >= total + 1) jump(1);
+    const x = wrapped(track.scrollLeft);
+    if (x !== track.scrollLeft) track.scrollLeft = x;
   };
+  track.addEventListener('scroll', wrap, { passive: true });
 
-  let settle;
-  track.addEventListener('scroll', () => {
-    update();
-    clearTimeout(settle);
-    settle = setTimeout(wrap, 120);   // aspetta che lo scorrimento si fermi
-  }, { passive: true });
+  // posizione iniziale: la prima foto vera, finché l'utente non tocca il carosello
+  let touched = false;
+  const start = () => { if (!touched) track.scrollLeft = setWidth(); };
+  ['pointerdown', 'wheel', 'touchstart'].forEach((ev) => track.addEventListener(ev, () => { touched = true; }, { passive: true }));
+  start();
+  [...track.children].forEach((el) => el.addEventListener(el.tagName === 'VIDEO' ? 'loadedmetadata' : 'load', start));
+  window.addEventListener('load', start);
+  window.addEventListener('resize', () => (touched ? wrap() : start()));
 
-  slides.forEach((el) => el.addEventListener(el.tagName === 'VIDEO' ? 'loadedmetadata' : 'load', update));
-  window.addEventListener('resize', () => { jump(raw()); update(); });
-
-  let startScroll = 0;
+  // trascinamento col mouse; quando lasci continua per inerzia e rallenta piano
+  let lastDx = 0, glide;
   dragToScroll(track, {
-    onStart: () => { startScroll = track.scrollLeft; },
-    onMove: (dx) => { track.scrollLeft = startScroll - dx; },
+    onStart: () => { cancelAnimationFrame(glide); lastDx = 0; },
+    onMove: (dx) => { track.scrollLeft -= dx - lastDx; lastDx = dx; },
     onEnd: (v) => {
-      // la velocità proietta il gesto in avanti: un trascinamento veloce salta più foto
-      const projected = track.scrollLeft - v * 260;
-      const target = Math.max(0, Math.min(slides.length - 1, Math.round(projected / width())));
-      track.scrollTo({ left: target * width(), behavior: 'smooth' });
-      setTimeout(() => { track.classList.remove('is-dragging'); wrap(); }, 450);
+      setTimeout(() => track.classList.remove('is-dragging'), 0);
+      if (reduceMotion) return;
+      let pos = track.scrollLeft, last = performance.now();
+      const step = (now) => {
+        const dt = Math.min(64, now - last); last = now;
+        pos = wrapped(pos - v * dt);
+        v *= Math.exp(-dt / 325);   // più alto = scivola più a lungo
+        track.scrollLeft = pos;
+        if (Math.abs(v) > 0.02) glide = requestAnimationFrame(step);
+      };
+      glide = requestAnimationFrame(step);
     },
   });
-
-  // posizione iniziale sulla prima foto vera (ripetuta quando la pagina ha finito di caricare)
-  const start = () => { if (raw() === 0) jump(offset); update(); };
-  start();
-  requestAnimationFrame(start);
-  window.addEventListener('load', start);
 });
 
 // ---------- Nastro artisti (CD player) ----------
@@ -221,13 +213,12 @@ document.querySelectorAll('.marquee').forEach((marquee) => {
     imgs.forEach((img, i) => img.addEventListener('click', () => open(imgs, i)));
   });
 
-  // caroselli: si apre la foto (o il video) visibile (un trascinamento non conta come click)
+  // caroselli: si apre la foto (o il video) cliccata (un trascinamento non conta come click)
   document.querySelectorAll('.carousel .track').forEach((track) => {
     const items = [...track.children].filter((el) => !el.classList.contains('clone'));
-    const offset = items.length > 1 ? 1 : 0;
-    track.addEventListener('click', () => {
-      const i = Math.round(track.scrollLeft / track.clientWidth) - offset;
-      open(items, (i + items.length) % items.length);
+    track.addEventListener('click', (e) => {
+      const el = e.target.closest('img, video');
+      if (el && track.contains(el)) open(items, Number(el.dataset.i));
     });
   });
 })();
