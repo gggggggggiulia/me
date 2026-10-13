@@ -62,9 +62,6 @@ document.querySelectorAll('.carousel').forEach((carousel) => {
   const update = () => {
     const i = raw();
     if (counter) counter.textContent = loop ? `${((i - offset + total) % total) + 1} / ${total}` : '';
-    // l'altezza del carosello segue quella della foto visibile
-    const h = slides[Math.min(i, slides.length - 1)].getBoundingClientRect().height;
-    if (h) track.style.height = h + 'px';
   };
   // se sei su una copia, salta alla foto vera corrispondente
   const wrap = () => {
@@ -81,7 +78,6 @@ document.querySelectorAll('.carousel').forEach((carousel) => {
     settle = setTimeout(wrap, 120);   // aspetta che lo scorrimento si fermi
   }, { passive: true });
 
-  slides.forEach((el) => el.addEventListener(el.tagName === 'VIDEO' ? 'loadedmetadata' : 'load', update));
   window.addEventListener('resize', () => { jump(raw()); update(); });
 
   let startScroll = 0;
