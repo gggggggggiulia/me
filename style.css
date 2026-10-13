@@ -97,7 +97,7 @@ strong, .strong { font-weight: 600; }
   padding: calc(var(--pad) * 1.35 + var(--line) * 2) var(--pad) 40vh 0;
 }
 
-.block { margin-bottom: calc(var(--line) * 6); }
+.block { margin-bottom: calc(var(--line) * 2); }
 .block:first-child { margin-top: 0; }
 
 /* riga etichetta | contenuto */
