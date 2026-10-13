@@ -1,0 +1,313 @@
+/* =========================================================
+   giulia costantini — stile
+   Tutte le misure principali sono variabili qui sotto:
+   cambiale qui e si aggiorna tutto il sito.
+   ========================================================= */
+
+/* Se hai i file di Monument Grotesk (licenza tua), mettili in /fonts
+   e togli il commento: verrà usato al posto di Inter.
+@font-face { font-family: "Monument Grotesk"; src: url("fonts/MonumentGrotesk-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+@font-face { font-family: "Monument Grotesk"; src: url("fonts/MonumentGrotesk-Italic.woff2")  format("woff2"); font-weight: 400; font-style: italic; }
+@font-face { font-family: "Monument Grotesk"; src: url("fonts/MonumentGrotesk-Bold.woff2")    format("woff2"); font-weight: 600; font-style: normal; }
+*/
+
+:root {
+  --bg: #eeeeee;
+  --ink: #1f1f1f;
+  --grey: #8a8a8a;
+  --select: #6a1fe6;          /* colore del testo evidenziato */
+
+  --font: "Monument Grotesk", "Inter", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;  /* didascalie */
+  --fs: clamp(15px, 1.1vw, 22px);        /* testo base */
+  --fs-small: clamp(11px, 0.74vw, 15px); /* didascalie */
+  --fs-meta: clamp(12px, 0.86vw, 17px);  /* righe grigie dei progetti */
+  --lh: 1.22;
+
+  --pad: max(14px, 1vw);       /* margine esterno */
+  --split: 59vw;               /* dove inizia la colonna destra */
+  --label: 10.2vw;             /* larghezza colonna etichette a destra */
+  --menu-label: 6.85vw;        /* larghezza colonna "Me / Studio / Salotto" */
+  --num: 2.45vw;               /* spazio tra "01" e il titolo nel menu */
+  --line: calc(var(--fs) * var(--lh));  /* una riga di testo */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--fs);
+  line-height: var(--lh);
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font: inherit; }
+ul { list-style: none; }
+img { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.14em; }
+a:hover { opacity: 0.55; }
+strong, .strong { font-weight: 600; }
+
+/* testo evidenziato: diventa viola, senza sfondo */
+::selection { color: var(--select); background: transparent; }
+
+/* immagini che si aprono a schermo intero */
+.collage img, .shelf img { cursor: zoom-in; }
+
+/* ---------------- colonna sinistra ---------------- */
+.left {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: var(--split);
+  padding: var(--pad);
+  padding-top: calc(var(--pad) * 1.35);
+  display: flex;
+  flex-direction: column;
+}
+.left a { text-decoration: none; }
+.site-name { margin-bottom: calc(var(--line) * 1); }
+
+.menu-group {
+  display: grid;
+  grid-template-columns: var(--menu-label) 1fr;
+  margin-bottom: var(--line);
+}
+.menu-label { font-weight: 600; align-self: start; }
+.menu .num { display: inline-block; width: var(--num); }
+
+.left .social { margin-top: auto; }
+.left .social a { text-decoration: underline; }
+.social-mobile { display: none; }
+
+/* ---------------- colonna destra ---------------- */
+.right {
+  margin-left: var(--split);
+  /* allinea "Me /" con il menu a sinistra */
+  padding: calc(var(--pad) * 1.35 + var(--line) * 2) var(--pad) 40vh 0;
+}
+
+.block { margin-bottom: calc(var(--line) * 6); }
+.block:first-child { margin-top: 0; }
+
+/* riga etichetta | contenuto */
+.row {
+  display: grid;
+  grid-template-columns: var(--label) 1fr;
+  margin-bottom: calc(var(--line) * 2.8);
+  scroll-margin-top: var(--pad);
+}
+.block, .project { scroll-margin-top: var(--pad); }
+.row > .label { grid-column: 1; }
+.row > .content { grid-column: 2; min-width: 0; }
+
+.text p + p { margin-top: var(--line); }
+.text em a, .text a { white-space: normal; }
+
+.entries p + p { margin-top: var(--line); }
+
+/* ---------------- collage "snapshots" ---------------- */
+.collage {
+  position: relative;
+  aspect-ratio: 800 / 1080;  /* altezza del collage: aumenta il secondo numero per più spazio */
+  margin-top: calc(var(--line) * -1.4);
+  margin-bottom: calc(var(--line) * 2);
+}
+.collage figure {
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: calc(var(--w) * 1%);
+}
+.collage img { width: 100%; height: auto; }
+
+figcaption {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  margin-top: 0.7em;
+}
+figcaption a { text-decoration: none; }
+
+/* ---------------- progetti ---------------- */
+.project { margin-bottom: calc(var(--line) * 9); }
+
+.project-head,
+.project-meta {
+  display: grid;
+  grid-template-columns: 45.8% 1fr;
+}
+.project-head { margin-bottom: calc(var(--line) * 1.25); }
+.project-head h2 a { text-decoration-thickness: 1px; }
+
+.project-meta {
+  color: var(--grey);
+  font-size: var(--fs-meta);
+  line-height: 1.25;
+  margin-bottom: calc(var(--line) * 1.3);
+}
+.project-meta p { padding-right: 1em; }
+
+.project .text { margin-bottom: calc(var(--line) * 1.2); }
+
+/* carosello */
+.carousel { position: relative; }
+.track {
+  display: flex;
+  align-items: flex-start;
+  transition: height .35s cubic-bezier(.65,.12,.62,.96);  /* l'altezza segue la foto visibile */
+  overflow-x: auto;
+  overflow-y: hidden;              /* mai scroll verticale dentro il carosello */
+  overscroll-behavior-x: contain;  /* lo scroll orizzontale non "trascina" la pagina */
+  touch-action: pan-x pan-y;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.track::-webkit-scrollbar { display: none; }
+.track > img,
+.track > video {
+  flex: 0 0 100%;
+  width: 100%;
+  height: auto;
+  scroll-snap-align: start;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.carousel .counter {
+  font-size: var(--fs-small);
+  color: var(--grey);
+  margin-top: 0.6em;
+}
+@media (hover: hover) {
+  .track { cursor: grab; }
+}
+/* mentre trascini: niente "calamita" e manina chiusa */
+.track.is-dragging { scroll-snap-type: none; cursor: grabbing; }
+
+/* ---------------- salotto ---------------- */
+/* nastro artisti: scorre da solo, si ferma all'hover, si trascina a mano */
+.marquee {
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-top: var(--line);
+  white-space: nowrap;
+  -webkit-mask-image: linear-gradient(90deg, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, #000 92%, transparent);
+}
+.marquee::-webkit-scrollbar { display: none; }
+@media (hover: hover) { .marquee { cursor: grab; } }
+.marquee.is-dragging { cursor: grabbing; user-select: none; }
+.marquee-track { display: inline-flex; }
+.marquee span { padding-right: 0.3em; flex: 0 0 auto; white-space: nowrap; }
+.marquee a { text-decoration: none; }
+
+.shelf {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.85%;
+  margin-top: var(--line);
+  align-items: start;
+}
+.shelf figure { margin-bottom: calc(var(--line) * 1.3); }
+.shelf img { width: 100%; height: auto; }
+
+.misc { margin-top: var(--line); }
+.misc li::before { content: "↳ "; }
+
+/* ---------------- lightbox (immagine a schermo intero) ---------------- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #0b0b0b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .2s, visibility .2s;
+}
+.lightbox.is-open { opacity: 1; visibility: visible; }
+.lightbox img,
+.lightbox video {
+  /* riempie lo spazio disponibile mantenendo le proporzioni */
+  width: calc(100vw - 180px);
+  height: calc(100vh - 80px);
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.lb-btn {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: #2a2a2a;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.lb-btn:hover { background: #3c3c3c; }
+.lb-btn svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 1.4; fill: none; }
+.lb-close { top: 20px; right: 20px; }
+.lb-prev { left: 20px; top: 50%; transform: translateY(-50%); }
+.lb-next { right: 20px; top: 50%; transform: translateY(-50%); }
+.lightbox video[hidden], .lightbox img[hidden] { display: none; }
+.lightbox.single .lb-prev, .lightbox.single .lb-next { display: none; }
+html.lb-lock { overflow: hidden; }
+
+/* ---------------- mobile ---------------- */
+@media (max-width: 768px) {
+  :root {
+    --fs: 16px;
+    --fs-small: 12px;
+    --fs-meta: 13px;
+    --pad: 16px;
+    --menu-label: 6.5em;
+    --num: 2.4em;
+  }
+
+  .left {
+    position: static;
+    width: auto;
+    padding-bottom: calc(var(--line) * 1);
+  }
+  .left .social { display: none; }
+  .social-mobile { display: block; margin-top: calc(var(--line) * 2); }
+
+  .right {
+    margin-left: 0;
+    padding: var(--pad);
+    padding-bottom: calc(var(--line) * 3);
+  }
+
+  .row { grid-template-columns: 1fr; margin-bottom: calc(var(--line) * 2); }
+  .row > .label, .row > .content { grid-column: 1; }
+  .row > .label { margin-bottom: calc(var(--line) * 0.5); }
+
+  /* il collage diventa una griglia semplice */
+  .collage {
+    aspect-ratio: auto;
+    margin-top: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--line) 12px;
+    align-items: start;
+  }
+  .collage figure { position: static; width: auto; }
+
+  .project { margin-bottom: calc(var(--line) * 4); }
+  .project-head, .project-meta { grid-template-columns: 1fr; row-gap: 0.4em; }
+  .shelf { gap: 10px; }
+  .lightbox img, .lightbox video { width: 100vw; height: calc(100vh - 140px); }
+  .lb-prev, .lb-next { top: auto; bottom: 20px; transform: none; }
+}

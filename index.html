@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>giulia costantini</title>
+  <meta name="description" content="Giulia Costantini — interaction, experience and graphic designer.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400&family=Inter:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!--
+  COME MODIFICARE
+  - Per aggiungere un progetto: copia un blocco <article class="project">…</article>
+    nella sezione Studio e aggiungi la voce corrispondente nel menu a sinistra.
+  - Immagini: in img/me, img/studio, img/salotto. Sostituisci i file tenendo lo stesso nome.
+-->
+
+<!-- ===================== COLONNA SINISTRA (fissa) ===================== -->
+<aside class="left">
+  <a class="site-name" href="#top">giulia costantini</a>
+
+  <nav class="menu">
+    <div class="menu-group">
+      <a class="menu-label" href="#me">Me</a>
+      <ul>
+        <li>/</li>
+        <li><a href="#profile">Profile</a></li>
+        <li><a href="#cv">CV</a></li>
+      </ul>
+    </div>
+
+    <div class="menu-group">
+      <a class="menu-label" href="#studio">Studio</a>
+      <ul>
+        <li>/</li>
+        <li><a href="#substrata"><span class="num">01</span>Substrata</a></li>
+        <li><a href="#theremin-900"><span class="num">02</span>Theremin 900</a></li>
+        <li><a href="#mappe-invisibili"><span class="num">03</span>Mappe invisibili</a></li>
+        <li><a href="#autopoiesi"><span class="num">04</span>Autopoiesi</a></li>
+        <li><a href="#unlocking-the-grid"><span class="num">05</span>Unlocking the Grid</a></li>
+      </ul>
+    </div>
+
+    <div class="menu-group">
+      <a class="menu-label" href="#salotto">Salotto</a>
+      <ul>
+        <li>/</li>
+        <li><a href="#cd-player">CD player</a></li>
+        <li><a href="#bookshelf">Bookshelf</a></li>
+        <li><a href="#miscellaneous">Miscellaneous</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <footer class="social">
+    <a href="https://www.instagram.com/quellochevedegiulia" target="_blank" rel="noopener">Instagram</a> /
+    <a href="https://www.behance.net/giuliacostant" target="_blank" rel="noopener">Behance</a> /
+    <a href="https://www.linkedin.com/in/giulia-costantini-513013214" target="_blank" rel="noopener">Linkedin</a>
+  </footer>
+</aside>
+
+<!-- ===================== COLONNA DESTRA (scorre) ===================== -->
+<main class="right" id="top">
+
+  <!-- ============ ME ============ -->
+  <section id="me" class="block">
+    <div class="row">
+      <h2 class="label strong">Me</h2>
+      <div class="content">/</div>
+    </div>
+
+    <div class="row" id="profile">
+      <h3 class="label">Profile</h3>
+      <div class="content text">
+        <p>Ciao, I’m Giulia — welcome to my tiny digital space. Have a look around and explore some of my projects and interests <em>(you can find more on my <a href="https://www.behance.net/giuliacostant" target="_blank" rel="noopener">Behance</a>).</em></p>
+        <p>I recently graduated with a Master’s degree in <a href="https://design.unirsm.sm/landingpage-design/landing-lm.html" target="_blank" rel="noopener">interaction and experience design</a> at the University of San Marino. I like graphic design, data, music, trekking, and diving into very specific corners of the internet.</p>
+        <p>And here are a few random snapshots of me :)</p>
+      </div>
+    </div>
+
+    <!-- Collage libero: --x e --w sono in % della larghezza, --y in % dell'altezza del riquadro.
+         Cambia questi numeri per spostare o sovrapporre le foto. -->
+    <div class="collage">
+      <figure style="--x:1.4;  --y:0;    --w:34">
+        <img src="img/me/crespina.jpg" alt="Lifting heavy stuff in Crespina">
+        <figcaption>lifting heavy stuff in Crespina&nbsp;↗</figcaption>
+      </figure>
+      <figure style="--x:26.9; --y:17.5; --w:32">
+        <img src="img/me/chiesa.jpg" alt="Setting up video projections in an abandoned church">
+        <figcaption>setting up video projections in an abandoned church&nbsp;↗</figcaption>
+      </figure>
+      <figure style="--x:61.5; --y:5.9;  --w:34.8">
+        <img src="img/me/madmapper.jpg" alt="Me and Gaia messing with MadMapper">
+        <figcaption>me and Gaia messing with MadMapper&nbsp;↗</figcaption>
+      </figure>
+      <figure style="--x:64.8; --y:28.6; --w:28.4">
+        <img src="img/me/exatr.jpg" alt="Working on the exhibition at EXATR in Forlì">
+        <figcaption>working on the exhibition showcasing our projects at EXATR in Forlì&nbsp;↗</figcaption>
+      </figure>
+      <figure style="--x:2.5;  --y:40; --w:32.6">
+        <img src="img/me/circuito.jpg" alt="Crazy sounds during an electronics workshop">
+        <figcaption>crazy sounds during an electronics workshop&nbsp;↗</figcaption>
+      </figure>
+      <figure style="--x:39.9; --y:41.8; --w:20">
+        <img src="img/me/strumenti.jpg" alt="We built our own instruments with Ioana Vreme Moser">
+        <figcaption>we built our own instruments with Ioana Vreme Moser&nbsp;↗</figcaption>
+      </figure>
+      <figure style="--x:62.4; --y:51.1; --w:28.9">
+        <img src="img/me/fenice-1.jpg" alt="Adjusting some audio gear in Senigallia, Teatro la Fenice">
+        <figcaption>adjusting some audio gear in Senigallia, Teatro la Fenice&nbsp;↗</figcaption>
+      </figure>
+      <figure style="--x:30;   --y:76.5; --w:30">
+        <img src="img/me/fenice-2.jpg" alt="More audio stuff from Teatro la Fenice">
+        <figcaption>more audio stuff from Teatro la Fenice&nbsp;↗</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ CV ============ -->
+  <section id="cv" class="block">
+    <div class="row"><h2 class="label">CV</h2></div>
+
+    <div class="row">
+      <h3 class="label">/ Education</h3>
+      <div class="content entries">
+        <p>BA in Design, Unirsm Design,<br><em>2020–2023</em></p>
+        <p>MA in Interaction and Experience design,<br><em>2023–2026</em></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <h3 class="label">/ Employment</h3>
+      <div class="content entries">
+        <p>Designer<br><a href="https://studio.accurat.it/" target="_blank" rel="noopener">Accurat</a>, Milano<br>2026</p>
+        <p>Design Intern<br><a href="https://studio.accurat.it/" target="_blank" rel="noopener">Accurat</a>, Milano<br>2025–2026</p>
+        <p>Graphic Design Intern<br><a href="https://studiofmmilano.com/" target="_blank" rel="noopener">Studio FM</a>, Milano<br><em>2023</em></p>
+        <p>Graphic Designer and Communication Intern<br>Bio-Synergy Ltd, Londra<br><em>2018</em></p>
+        <p>Photo Assistant,<br>Studio di Rossano Ronci, Pesaro<br><em>2018</em></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <h3 class="label">/ Workshops +</h3>
+      <div class="content entries">
+        <p><a href="https://www.artapartofculture.net/2024/11/13/teller-k-comunita-lopera-trasforma-lo-spazio/" target="_blank" rel="noopener">Wild Commons - design for communities</a>,<br>workshop held by Teller and K, Crespina,<br><em>2024</em></p>
+        <p><a href="https://www.ioanavrememoser.com/sizzling-semiconductors" target="_blank" rel="noopener">Sizzling Semiconductors and fluid forms</a>,<br>workshop held by Ioana Vreme Moser, Fano<br><em>2023</em></p>
+        <p>Communication for social media,<br>workshop held by Luis Sal, Unirsm,<br><em>2021</em></p>
+        <p>Silk-screen printing,<br>workshop held by Orsetta Rocchetto, Unirsm,<br><em>2021</em></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <h3 class="label">/ Awards</h3>
+      <div class="content entries">
+        <p>SMHUB, new identity for San Marino World Trade Center,<br>Work for Unirsm Design,<br><em>2024</em><br>Selected final logo proposal</p>
+        <p>New identity for San Marino Innovation,<br>Contest held by Unirsm Design,<br><em>2024</em><br>1st prize</p>
+        <p>Interaction &amp; Experience Unirsm Design Contest,<br>Contest held by Unirsm Design,<br><em>2024</em><br>2nd prize</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STUDIO ============ -->
+  <section id="studio" class="block">
+
+    <!-- ---------- 01 SUBSTRATA ---------- -->
+    <article class="project row" id="substrata">
+      <div class="label">01.</div>
+      <div class="content">
+        <header class="project-head">
+          <h2><a href="https://www.behance.net/gallery/207241329/SUBSTRATA-music-festival-visual-identity" target="_blank" rel="noopener">SUBSTRATA&nbsp;↗</a></h2>
+          <p>Music festival visual identity</p>
+        </header>
+        <div class="project-meta">
+          <p>Media Design university course<br>held by Davide Di Gennaro and Francesco Mantovani<br>2024</p>
+          <p>Printed poster serie<br>Digital animated poster serie<br>Folded map</p>
+        </div>
+        <div class="text">
+          <p>SUBSTRATA is a unique festival of experimental electronic music: a concert that takes place quietly every day, under the green surface of leaves and in the intricate labyrinths of roots. plants and fungi orchestrate this concert in their own particular language, which is then translated into sound.</p>
+        </div>
+        <div class="carousel">
+          <div class="track">
+            <img src="img/studio/substrata-01.jpg" alt="Substrata">
+            <img src="img/studio/substrata-02.jpg" alt="Substrata, poster series" loading="lazy">
+            <img src="img/studio/substrata-03.jpg" alt="Substrata" loading="lazy">
+            <img src="img/studio/substrata-04.jpg" alt="Substrata, poster" loading="lazy">
+            <img src="img/studio/substrata-05.jpg" alt="Substrata, making of" loading="lazy">
+            <video src="img/studio/substrata-06.mp4" muted autoplay loop playsinline preload="metadata"></video>
+          </div>
+          <div class="counter"></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ---------- 02 THEREMIN 900 ---------- -->
+    <article class="project row" id="theremin-900">
+      <div class="label">02.</div>
+      <div class="content">
+        <header class="project-head">
+          <h2><a href="https://www.behance.net/gallery/207481001/THEREMIN-900-INTERACTIVE-EXPERIENCE" target="_blank" rel="noopener">Theremin 900&nbsp;↗</a></h2>
+          <p>Gesture to sound interface</p>
+        </header>
+        <div class="project-meta">
+          <p>Touchdesigner workshop<br>held by Laura Arcangeli<br>2024</p>
+          <p>Touchdesigner interface</p>
+        </div>
+        <div class="text">
+          <p>Born from an intensive five-day workshop in TouchDesigner by Laura Arcangeli of <a href="https://ultraviolet.to/" target="_blank" rel="noopener">Studio Ultravioletto</a>, this project explores the boundaries between the digital and the physical world. Merging the otherworldly Theremin with precise gesture-tracking courtesy of Leap Motion, the installation turns simple movements into immersive, multisensory experience.</p>
+        </div>
+        <div class="carousel">
+          <div class="track">
+            <img src="img/studio/theremin-900-01.jpg" alt="Theremin 900" loading="lazy">
+            <!-- i video vanno così: muted + autoplay + loop + playsinline -->
+            <video src="img/studio/theremin-900-02.mp4" muted autoplay loop playsinline preload="metadata"></video>
+            <img src="img/studio/theremin-900-03.jpg" alt="Theremin 900" loading="lazy">
+            <img src="img/studio/theremin-900-04.jpg" alt="Theremin 900, TouchDesigner interface" loading="lazy">
+          </div>
+          <div class="counter"></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ---------- 03 MAPPE INVISIBILI ---------- -->
+    <article class="project row" id="mappe-invisibili">
+      <div class="label">03.</div>
+      <div class="content">
+        <header class="project-head">
+          <h2>mappe invisibili</h2>
+          <p>Soundmapping experience</p>
+        </header>
+        <div class="project-meta">
+          <p>BA Graduation Thesis in Design<br>2023</p>
+          <p>Mobile app prototype<br>Soundmap kit (map + postcards + pen)</p>
+        </div>
+        <div class="text">
+          <p>mappe invisibili is an experience that takes place in the Natural Park of Monte San Bartolo. Through the practice of sound maps, visitors are offered a new way to explore their surroundings. The visitor is guided through a process of learning sound mapping, at the end of which they will create a personal sound map and upload it to the dedicated platform.</p>
+          <p>This project won second place prize in the <a href="https://design.unirsm.sm/news/interaction-experience-unirsm-design-contest-2024/" target="_blank" rel="noopener">Interaction &amp; Experience Unirsm Design Contest 2024</a>, held by Unirsm Design.</p>
+        </div>
+        <div class="carousel">
+          <div class="track">
+            <img src="img/studio/mappe-invisibili-01.jpg" alt="mappe invisibili" loading="lazy">
+            <img src="img/studio/mappe-invisibili-02.jpg" alt="mappe invisibili" loading="lazy">
+            <img src="img/studio/mappe-invisibili-03.jpg" alt="mappe invisibili" loading="lazy">
+            <img src="img/studio/mappe-invisibili-04.jpg" alt="mappe invisibili" loading="lazy">
+            <img src="img/studio/mappe-invisibili-05.jpg" alt="mappe invisibili" loading="lazy">
+            <img src="img/studio/mappe-invisibili-06.jpg" alt="mappe invisibili" loading="lazy">
+          </div>
+          <div class="counter"></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ---------- 04 AUTOPOIESI ---------- -->
+    <article class="project row" id="autopoiesi">
+      <div class="label">04.</div>
+      <div class="content">
+        <header class="project-head">
+          <h2><a href="https://gggggggggiulia.github.io/autopoiesi_v2/home.html" target="_blank" rel="noopener">Autopoiesi&nbsp;↗</a></h2>
+          <p>Network diagram for biological interactions exploration</p>
+        </header>
+        <div class="project-meta">
+          <p>Information design course<br>held by Giorgio Uboldi<br>2025</p>
+          <p>Desktop website</p>
+        </div>
+        <div class="text">
+          <p>Autopoiesi aims to easily visualize interactions between species in a specific environment. By exploring the complex network of non-human interactions, one can better understand the importance of each individual species to the maintenance of the entire ecosystem.</p>
+        </div>
+        <div class="carousel">
+          <div class="track">
+            <img src="img/studio/autopoiesi-01.jpg" alt="Autopoiesi" loading="lazy">
+            <img src="img/studio/autopoiesi-02.jpg" alt="Autopoiesi" loading="lazy">
+            <video src="img/studio/autopoiesi-03.mp4" muted autoplay loop playsinline preload="metadata"></video>
+            <img src="img/studio/autopoiesi-04.jpg" alt="Autopoiesi" loading="lazy">
+            <img src="img/studio/autopoiesi-05.jpg" alt="Autopoiesi" loading="lazy">
+            <img src="img/studio/autopoiesi-06.jpg" alt="Autopoiesi" loading="lazy">
+            <img src="img/studio/autopoiesi-07.jpg" alt="Autopoiesi" loading="lazy">
+          </div>
+          <div class="counter"></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ---------- 05 UNLOCKING THE GRID ---------- -->
+    <article class="project row" id="unlocking-the-grid">
+      <div class="label">05.</div>
+      <div class="content">
+        <header class="project-head">
+          <h2><a href="https://www.nytimes.com/paidpost/siemens-energy/unlocking-the-grid.html" target="_blank" rel="noopener">Unlocking the Grid&nbsp;↗</a></h2>
+          <p>Data Storytelling Longscroll for Siemens Energy</p>
+        </header>
+        <div class="project-meta">
+          <p>Accurat Studio</p>
+          <p>Paid Post for New York Times</p>
+        </div>
+        <div class="text">
+          <p>Unlocking the Grid is a geography-driven storytelling experience that takes users on a journey through the history of the United States’ electric power system. Data becomes space. Geography becomes story.</p>
+        </div>
+        <div class="carousel">
+          <div class="track">
+            <img src="img/studio/unlocking-the-grid-01.jpg" alt="Unlocking the Grid" loading="lazy">
+            <img src="img/studio/unlocking-the-grid-02.jpg" alt="Unlocking the Grid" loading="lazy">
+            <img src="img/studio/unlocking-the-grid-03.jpg" alt="Unlocking the Grid" loading="lazy">
+          </div>
+          <div class="counter"></div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ SALOTTO ============ -->
+  <section id="salotto" class="block">
+    <div class="row">
+      <h2 class="label strong">Salotto</h2>
+      <div class="content text">
+        <p>Relax, this is the funniest section of my place. Take a look at the things I’m currently into: stuff I read, listen to, or simply remember to move over from my Notion pages :)</p>
+      </div>
+    </div>
+
+    <div class="row" id="cd-player">
+      <h3 class="label">/ CD player</h3>
+      <div class="content text">
+        <p>Music says a lot about a person… here are some artists I love, catch them if you can!</p>
+        <!-- Nastro che scorre: aggiungi artisti qui (una riga per artista), il JS lo ripete da solo -->
+        <div class="marquee">
+          <div class="marquee-track">
+            <span><a href="https://open.spotify.com/artist/3mIj9lX2MWuHmhNCA7LSCW" target="_blank" rel="noopener">The 1975</a> /</span>
+            <span><a href="https://open.spotify.com/artist/56ZTgzPBDge0OvCGgMO3OY" target="_blank" rel="noopener">Beach House</a> /</span>
+            <span><a href="https://open.spotify.com/artist/7BqRcZsHYYQeqMAOp7e532" target="_blank" rel="noopener">Sunset Rollercoaster</a> /</span>
+            <span><a href="https://open.spotify.com/artist/1QAJqy2dA3ihHBFIHRphZj" target="_blank" rel="noopener">Cigarettes After Sex</a> /</span>
+            <span><a href="https://open.spotify.com/artist/0wuuYZFptujAsRthrdea2B" target="_blank" rel="noopener">Vendredi sur Mer</a> /</span>
+            <span><a href="https://open.spotify.com/artist/3IunaFjvNKj98JW89JYv9u" target="_blank" rel="noopener">The Japanese House</a> /</span>
+            <span><a href="https://open.spotify.com/artist/3IWdvItNhmdo282Wwp0CwH" target="_blank" rel="noopener">Tamino</a> /</span>
+            <span><a href="https://open.spotify.com/artist/1LTFJvVvRw7ghAyThxYmnF" target="_blank" rel="noopener">Glass Beams</a> /</span>
+            <span><a href="https://open.spotify.com/artist/7aMMDRtoKETQscQlRZ7IFp" target="_blank" rel="noopener">Mattia Cupelli</a> /</span>
+            <span><a href="https://open.spotify.com/artist/3TJZG17pjOKXwx1ELKJPfm" target="_blank" rel="noopener">Wisp</a> /</span>
+            <span><a href="https://open.spotify.com/artist/1zrqDVuh55auIRthalFdXp" target="_blank" rel="noopener">Alva Noto</a> /</span>
+            <span><a href="https://open.spotify.com/artist/2h5syT5XdsQgKLq8Yn1klO" target="_blank" rel="noopener">Nala Sinephro</a> /</span>
+            <span><a href="https://open.spotify.com/artist/3ORXfLCNfO785thdsmtM8X" target="_blank" rel="noopener">Costantinople</a> /</span>
+            <span><a href="https://open.spotify.com/artist/4XvKzACpcdk5iiZbWNvfbq" target="_blank" rel="noopener">Monolake</a> /</span>
+            <span><a href="https://open.spotify.com/artist/2uQn9OFibYuvEMqMuH1zaP" target="_blank" rel="noopener">The Caretaker</a> /</span>
+            <span><a href="https://open.spotify.com/artist/2vY280VfdCt44AmnKNGPrn" target="_blank" rel="noopener">Pyur</a> /</span>
+            <span><a href="https://open.spotify.com/artist/5Ti3nqsUZsSrsk3qcOADjK" target="_blank" rel="noopener">Emma Nolde</a> /</span>
+            <span><a href="https://open.spotify.com/artist/4U5PlulITu7q03ItEaIOmz" target="_blank" rel="noopener">Tonica &amp; Dominante</a> /</span>
+            <span><a href="https://open.spotify.com/artist/2rqNUPgkBgbhcRabUQ5C9g" target="_blank" rel="noopener">Elephant Gym</a> /</span>
+            <span><a href="https://open.spotify.com/artist/2e7hYqRjL82c1nIoREHc4J" target="_blank" rel="noopener">Sunn O)))</a> /</span>
+            <span><a href="https://open.spotify.com/artist/0BdiTIT0f1quCjphcLrwKZ" target="_blank" rel="noopener">Post Nebbia</a> /</span>
+            <span><a href="https://open.spotify.com/artist/2sSGPbdZJkaSE2AbcGOACx" target="_blank" rel="noopener">The Marias</a> /</span>
+            <span><a href="https://open.spotify.com/artist/3zmfs9cQwzJl575W1ZYXeT" target="_blank" rel="noopener">Men I Trust</a> /</span>
+            <span><a href="https://open.spotify.com/artist/3Uqu1mEdkUJxPe7s31n1M9" target="_blank" rel="noopener">Weyes Blood</a> /</span>
+            <span><a href="https://open.spotify.com/artist/2uYWxilOVlUdk4oV9DvwqK" target="_blank" rel="noopener">Mitski</a> /</span>
+            <span><a href="https://open.spotify.com/artist/0SwO7SWeDHJijQ3XNS7xEE" target="_blank" rel="noopener">MGMT</a> /</span>
+            <span><a href="https://open.spotify.com/artist/22WZ7M8sxp5THdruNY3gXt" target="_blank" rel="noopener">The Doors</a> /</span>
+            <span><a href="https://open.spotify.com/artist/1RKG6WXRzmTJtbLRZTPU0T" target="_blank" rel="noopener">Cosmo Pyke</a> /</span>
+            <span><a href="https://open.spotify.com/artist/2InNZR52CaeutuA8BjbfSh" target="_blank" rel="noopener">Andrea Lazlo De Simone</a> /</span>
+            <span><a href="https://open.spotify.com/artist/2GTGi2RC8sajDRwBXKpWYg" target="_blank" rel="noopener">Tell</a> /</span>
+            <span><a href="https://open.spotify.com/artist/3k3RY7kR8f0vp8Cq27P141" target="_blank" rel="noopener">Berlioz</a> /</span>
+            <span><a href="https://open.spotify.com/artist/3HL1CyOnDLFJo1Rr8YBlKy" target="_blank" rel="noopener">Mina</a> /</span>
+            <span><a href="https://open.spotify.com/artist/2FwDTncULUnmANIh7qKa5z" target="_blank" rel="noopener">FKJ</a> /</span>
+            <span><a href="https://open.spotify.com/artist/6MFdJZPZF36B0YbmvCdfTR" target="_blank" rel="noopener">Francesco Bianconi</a> /</span>
+            <span><a href="https://open.spotify.com/artist/4MR6tQyIrWK82b56cYPBDv" target="_blank" rel="noopener">Ornella Vannoni</a> /</span>
+            <span><a href="https://open.spotify.com/artist/756Li3sKcK4EdDiniLPqRl" target="_blank" rel="noopener">Messer Chups</a> /</span>
+            <span><a href="https://open.spotify.com/artist/2ABEVwxsESCBsCBjN6qFru" target="_blank" rel="noopener">Salamanda</a> /</span>
+            <span><a href="https://open.spotify.com/artist/2KD9QZ3u2oLgdRKsKVSW4I" target="_blank" rel="noopener">Seraphine Noir</a> /</span>
+            <span><a href="https://open.spotify.com/artist/4w5pfoZRqRiaPZkqkyYwVw" target="_blank" rel="noopener">Oberdan</a> /</span>
+            <span><a href="https://open.spotify.com/artist/2TwOrUcYnAlIiKmVQkkoSZ" target="_blank" rel="noopener">Wet Leg</a> /</span>
+            <span><a href="https://open.spotify.com/artist/16oZKvXb6WkQlVAjwo2Wbg" target="_blank" rel="noopener">The Lumineers</a> /</span>
+            <span><a href="https://open.spotify.com/artist/3yY2gUcIsjMr8hjo51PoJ8" target="_blank" rel="noopener">The Smiths</a> /</span>
+            <span><a href="https://open.spotify.com/artist/78rUTD7y6Cy67W1RVzYs7t" target="_blank" rel="noopener">Pink Pantheress</a> /</span>
+            <span><a href="https://open.spotify.com/artist/6kBDZFXuLrZgHnvmPu9NsG" target="_blank" rel="noopener">Aphex Twin</a> /</span>
+            <span><a href="https://open.spotify.com/artist/4wyNyxs74Ux8UIDopNjIai" target="_blank" rel="noopener">King Krule</a> /</span>
+            <span><a href="https://open.spotify.com/artist/0QWrMNukfcVOmgEU0FEDyD" target="_blank" rel="noopener">Jacob Collier</a> /</span>
+            <span><a href="https://open.spotify.com/artist/3iOvXCl6edW5Um0fXEBRXy" target="_blank" rel="noopener">The XX</a> /</span>
+            <span><a href="https://open.spotify.com/artist/1ByonnOisC5Owt0tfsyzGc" target="_blank" rel="noopener">Coca Puma</a> /</span>
+            <span><a href="https://open.spotify.com/artist/40Aif8AfzbNGA2s52ESEE2" target="_blank" rel="noopener">Sofia Isella</a> /</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" id="bookshelf">
+      <h3 class="label">/ Bookshelf</h3>
+      <div class="content">
+        <div class="text"><p>Here’s a collection of some of the books I’ve loved the most, hope you’ll find some inspiration here.</p></div>
+        <!-- Tre colonne indipendenti (effetto "muratura"): sposta un <figure> da una colonna all'altra per riordinare -->
+        <div class="shelf">
+          <div class="shelf-col">
+            <figure><img src="img/salotto/silent-whale-letters.jpg" alt="Silent Whale Letters"><figcaption>Silent Whale Letters, <a href="https://www.google.com/search?q=Ella+Finer" target="_blank" rel="noopener">Ella Finer</a>, <a href="https://www.google.com/search?q=Vibeke+Mascini" target="_blank" rel="noopener">Vibeke Mascini</a></figcaption></figure>
+            <figure><img src="img/salotto/going-out.jpg" alt="Going Out" loading="lazy"><figcaption>Going Out, Elena Biserna</figcaption></figure>
+            <figure><img src="img/salotto/origini-pensiero-europeo.jpg" alt="Le Origini del Pensiero Europeo" loading="lazy"><figcaption>Le Origini del Pensiero Europeo, Richard Broxton Onians</figcaption></figure>
+          </div>
+          <div class="shelf-col">
+            <figure><img src="img/salotto/chthulucene.jpg" alt="Chthulucene"><figcaption>Chthulucene, Donna Haraway</figcaption></figure>
+            <figure><img src="img/salotto/metamorfosi.jpg" alt="Metamorfosi" loading="lazy"><figcaption>Metamorfosi, Emanuele Coccia</figcaption></figure>
+            <figure><img src="img/salotto/convivialita.jpg" alt="La convivialità" loading="lazy"><figcaption>La convivialità, Ivan Illich</figcaption></figure>
+            <figure><img src="img/salotto/designs-for-the-pluriverse.jpg" alt="Designs for the Pluriverse" loading="lazy"><figcaption>Designs for the Pluriverse, Arturo Escobar</figcaption></figure>
+          </div>
+          <div class="shelf-col">
+            <figure><img src="img/salotto/sonic-warfare.jpg" alt="Sonic Warfare"><figcaption>Sonic Warfare, Steve Goodman</figcaption></figure>
+            <figure><img src="img/salotto/storia-rovine.jpg" alt="Storia Universale delle Rovine" loading="lazy"><figcaption>Storia Universale delle Rovine, Alain Schnapp</figcaption></figure>
+            <figure><img src="img/salotto/the-soundscape.jpg" alt="The Soundscape" loading="lazy"><figcaption>The Soundscape, Richard Murray Schafer</figcaption></figure>
+            <figure><img src="img/salotto/gli-esordi.jpg" alt="Gli Esordi" loading="lazy"><figcaption>Gli Esordi, Antonio Moresco</figcaption></figure>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" id="miscellaneous">
+      <h3 class="label">/ Miscellaneous</h3>
+      <div class="content text">
+        <p>I find myself reading a lot of stuff on the internet, and I like to archive it all on my Notion. Have fun exploring some random but interesting information.</p>
+        <ul class="misc">
+          <li><a href="https://forensic-architecture.org/investigation/a-cartography-of-genocide" target="_blank" rel="noopener">A&nbsp;Cartography of Genocide</a>, <em>Forensic Architecture, 2024</em></li>
+          <li><a href="https://www.kabulmagazine.com/che-cosa-cantano-le-balene/" target="_blank" rel="noopener">Che cosa cantano le balene?</a> <em>Eleonora Savorelli, Kabul Magazine, 2022</em></li>
+          <li><a href="https://www.kabulmagazine.com/buen-vivir-natura-come-soggetto-giuridico/" target="_blank" rel="noopener">Buen vivir, natura come soggetto giuridico</a>, <em>Kabul Magazine, 2020</em></li>
+          <li><a href="https://www.mixcloud.com/LearningPalestineGroup/learning-palestine-_-until-liberation/" target="_blank" rel="noopener">Learning Palestine - Until liberation I</a>, <em>Learning Palestine Group, 2018</em></li>
+          <li><a href="https://www.radioalhara.net/" target="_blank" rel="noopener">Radio Alhara</a></li>
+          <li><a href="https://countryofwords.supdigital.org/periods/literature-under-triple-occupation-post-nakba/" target="_blank" rel="noopener">Literature under Triple Occupation Post-Nakba</a>, <em>Country of words, 2023</em></li>
+          <li><a href="https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2018.00025/full" target="_blank" rel="noopener">Beyond Chemical Triggers: Evidence for Sound-Evoked Physiological Reactions in Plants</a>, <em>Frontiers, 2018</em></li>
+          <li><a href="https://2august.eu/" target="_blank" rel="noopener">Dikh He Na Bister</a> <em>(Look and dont forget)</em>, Roma and Sinti holocaust memorial day</li>
+          <li><a href="https://www.kabulmagazine.com/ecosistemi-cognitivi/" target="_blank" rel="noopener">Ecosistemi cognitivi</a> <em>Raffaele Guarino, Kabul Magazine, 2023</em></li>
+          <li><a href="https://it.wikipedia.org/wiki/Ecotono" target="_blank" rel="noopener">Ecotono</a></li>
+          <li><a href="https://forensic-architecture.org/investigation/ecocide-in-gaza" target="_blank" rel="noopener">No Traces Of Life: Israel's Ecocide In Gaza 2023–2024</a>, Forensic Architecture, ongoing</li>
+          <li><a href="https://naturejournals.org/index.php/envirobio/eb-modules/interactions/species-interactions/" target="_blank" rel="noopener">Species Interactions</a>, Nature Journals</li>
+          <li><a href="https://socks-studio.com/2024/03/24/one-can-no-longer-distinguish-the-suns-outline-atlas-of-clouds-and-of-states-of-the-sky-1930/" target="_blank" rel="noopener">“One Can No Longer Distinguish the Sun’s Outline”: Atlas of Clouds and of States of the Sky (1930)</a>, Socks Studio, 2024</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer ripetuto solo su mobile -->
+  <footer class="social social-mobile">
+    <a href="https://www.instagram.com/quellochevedegiulia" target="_blank" rel="noopener">Instagram</a> /
+    <a href="https://www.behance.net/giuliacostant" target="_blank" rel="noopener">Behance</a> /
+    <a href="https://www.linkedin.com/in/giulia-costantini-513013214" target="_blank" rel="noopener">Linkedin</a>
+  </footer>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
