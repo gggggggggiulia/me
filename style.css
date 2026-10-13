@@ -137,7 +137,7 @@ figcaption {
 figcaption a { text-decoration: none; }
 
 /* ---------------- progetti ---------------- */
-.project { margin-bottom: calc(var(--line) * 9); }
+.project { margin-bottom: calc(var(--line) * 5); }
 
 .project-head,
 .project-meta {
