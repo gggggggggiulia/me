@@ -25,7 +25,7 @@
   --lh: 1.22;
 
   --pad: max(14px, 1vw);       /* margine esterno */
-  --split: 59vw;               /* dove inizia la colonna destra */
+  --split: 50vw;               /* dove inizia la colonna destra (più basso = colonna più larga) */
   --label: 10.2vw;             /* larghezza colonna etichette a destra */
   --menu-label: 6.85vw;        /* larghezza colonna "Me / Studio / Salotto" */
   --num: 2.45vw;               /* spazio tra "01" e il titolo nel menu */
