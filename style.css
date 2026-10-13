@@ -157,40 +157,40 @@ figcaption a { text-decoration: none; }
 
 .project .text { margin-bottom: calc(var(--line) * 1.2); }
 
-/* carosello: cornice di proporzioni fisse, ogni foto ci sta dentro intera (niente tagli).
-   Per cambiare le proporzioni di un solo progetto: <div class="carousel" style="--ratio: 4 / 3"> */
-.carousel { position: relative; --ratio: 3 / 2; }
+/* carosello: foto "appese" in alto, ognuna con le sue proporzioni, scorrimento libero e infinito.
+   Ogni foto è più stretta del carosello, così si vede sempre un pezzo della successiva. */
+.carousel {
+  position: relative;
+  container-type: inline-size;
+  --car-w: 88cqw;   /* larghezza massima di una foto (cqw = % della larghezza del carosello) */
+  --car-h: 62cqw;   /* altezza massima di una foto: le verticali non superano questa */
+  --car-gap: calc(var(--pad) * 0.5);  /* spazio tra le foto */
+}
 .track {
   display: flex;
-  aspect-ratio: var(--ratio);
+  align-items: flex-start;         /* tutte appese in alto */
+  gap: var(--car-gap);
   overflow-x: auto;
   overflow-y: hidden;              /* mai scroll verticale dentro il carosello */
   overscroll-behavior-x: contain;  /* lo scroll orizzontale non "trascina" la pagina */
   touch-action: pan-x pan-y;
-  scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
 .track::-webkit-scrollbar { display: none; }
 .track > img,
 .track > video {
-  flex: 0 0 100%;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;             /* la foto entra intera nella cornice, centrata */
-  scroll-snap-align: start;
+  flex: 0 0 auto;
+  width: auto;
+  height: auto;
+  max-width: var(--car-w);
+  max-height: var(--car-h);
   user-select: none;
   -webkit-user-drag: none;
-}
-.carousel .counter {
-  font-size: var(--fs-small);
-  color: var(--grey);
-  margin-top: 0.6em;
 }
 @media (hover: hover) {
   .track { cursor: grab; }
 }
-/* mentre trascini: niente "calamita" e manina chiusa */
-.track.is-dragging { scroll-snap-type: none; cursor: grabbing; }
+.track.is-dragging { cursor: grabbing; }
 
 /* ---------------- salotto ---------------- */
 /* nastro artisti: scorre da solo, si ferma all'hover, si trascina a mano */
