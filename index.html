@@ -20,6 +20,8 @@
   - Immagini: in img/me, img/studio, img/salotto. Sostituisci i file tenendo lo stesso nome.
   - Didascalia di una foto o di un video: data-caption="…" dentro <img> o <video>.
     Compare passando col mouse e sotto la foto aperta a schermo intero.
+  - Freccia di una didascalia che porta a una voce della pagina: <a class="jump" href="#id-della-voce">↓</a>
+    e sulla voce di arrivo id="id-della-voce" (esempio: id="wild-commons" nei Workshops).
 -->
 
 <!-- ===================== COLONNA SINISTRA (fissa) ===================== -->
@@ -90,35 +92,35 @@
     <div class="collage">
       <figure style="--x:1.4;  --y:0;    --w:34">
         <img src="img/me/crespina.jpg" alt="Lifting heavy stuff in Crespina">
-        <figcaption>lifting heavy stuff in Crespina&nbsp;↗</figcaption>
+        <figcaption>lifting heavy stuff in Crespina&nbsp;<a class="jump" href="#wild-commons" aria-label="Vai al workshop Wild Commons">↓</a></figcaption>
       </figure>
       <figure style="--x:26.9; --y:19.5; --w:32">
         <img src="img/me/chiesa.jpg" alt="Setting up video projections in an abandoned church">
-        <figcaption>setting up video projections in an abandoned church&nbsp;↗</figcaption>
+        <figcaption>setting up video projections in an abandoned church&nbsp;<a class="jump" href="#wild-commons" aria-label="Vai al workshop Wild Commons">↓</a></figcaption>
       </figure>
       <figure style="--x:61.5; --y:5.9;  --w:34.8">
         <img src="img/me/madmapper.jpg" alt="Me and Gaia messing with MadMapper">
-        <figcaption>me and Gaia messing with MadMapper&nbsp;↗</figcaption>
+        <figcaption>me and Gaia messing with MadMapper&nbsp;<a class="jump" href="#wild-commons" aria-label="Vai al workshop Wild Commons">↓</a></figcaption>
       </figure>
       <figure style="--x:64.8; --y:28.6; --w:28.4">
         <img src="img/me/exatr.jpg" alt="Working on the exhibition at EXATR in Forlì">
-        <figcaption>working on the exhibition showcasing our projects at EXATR in Forlì&nbsp;↗</figcaption>
+        <figcaption>working on the exhibition showcasing our projects at EXATR in Forlì&nbsp;<a href="https://www.behance.net/gallery/225952409/Mostra-Spazi-Indecisi-EXATR" target="_blank" rel="noopener">↗</a></figcaption>
       </figure>
       <figure style="--x:2.5;  --y:40; --w:32.6">
         <img src="img/me/circuito.jpg" alt="Crazy sounds during an electronics workshop">
-        <figcaption>crazy sounds during an electronics workshop&nbsp;↗</figcaption>
+        <figcaption>crazy sounds during an electronics workshop&nbsp;<a class="jump" href="#sizzling-semiconductors" aria-label="Vai al workshop Sizzling Semiconductors">↓</a></figcaption>
       </figure>
       <figure style="--x:39.9; --y:41.8; --w:20">
         <img src="img/me/strumenti.jpg" alt="We built our own instruments with Ioana Vreme Moser">
-        <figcaption>we built our own instruments with Ioana Vreme Moser&nbsp;↗</figcaption>
+        <figcaption>we built our own instruments with Ioana Vreme Moser&nbsp;<a class="jump" href="#sizzling-semiconductors" aria-label="Vai al workshop Sizzling Semiconductors">↓</a></figcaption>
       </figure>
       <figure style="--x:62.4; --y:51.1; --w:28.9">
         <img src="img/me/fenice-1.jpg" alt="Adjusting some audio gear in Senigallia, Teatro la Fenice">
-        <figcaption>adjusting some audio gear in Senigallia, Teatro la Fenice&nbsp;↗</figcaption>
+        <figcaption>adjusting some audio gear in Senigallia, Teatro la Fenice&nbsp;<a href="https://nasonero.studio/portfolio/elena-di-euripide" target="_blank" rel="noopener">↗</a></figcaption>
       </figure>
       <figure style="--x:30;   --y:76.5; --w:30">
         <img src="img/me/fenice-2.jpg" alt="More audio stuff from Teatro la Fenice">
-        <figcaption>more audio stuff from Teatro la Fenice&nbsp;↗</figcaption>
+        <figcaption>more audio stuff from Teatro la Fenice&nbsp;<a href="https://nasonero.studio/portfolio/elena-di-euripide" target="_blank" rel="noopener">↗</a></figcaption>
       </figure>
     </div>
   </section>
@@ -149,8 +151,8 @@
     <div class="row">
       <h3 class="label">/ Workshops +</h3>
       <div class="content entries">
-        <p><a href="https://www.artapartofculture.net/2024/11/13/teller-k-comunita-lopera-trasforma-lo-spazio/" target="_blank" rel="noopener">Wild Commons - design for communities</a>,<br>workshop held by Teller and K, Crespina<br><em>2024</em></p>
-        <p><a href="https://www.ioanavrememoser.com/sizzling-semiconductors" target="_blank" rel="noopener">Sizzling Semiconductors and fluid forms</a>,<br>workshop held by Ioana Vreme Moser, Fano<br><em>2023</em></p>
+        <p id="wild-commons"><a href="https://www.artapartofculture.net/2024/11/13/teller-k-comunita-lopera-trasforma-lo-spazio/" target="_blank" rel="noopener">Wild Commons - design for communities</a>,<br>workshop held by Teller and K, Crespina<br><em>2024</em></p>
+        <p id="sizzling-semiconductors"><a href="https://www.ioanavrememoser.com/sizzling-semiconductors" target="_blank" rel="noopener">Sizzling Semiconductors and fluid forms</a>,<br>workshop held by Ioana Vreme Moser, Fano<br><em>2023</em></p>
         <p>Communication for social media,<br>workshop held by Luis Sal, Unirsm<br><em>2021</em></p>
         <p>Silk-screen printing,<br>workshop held by Orsetta Rocchetto, Unirsm<br><em>2021</em></p>
       </div>

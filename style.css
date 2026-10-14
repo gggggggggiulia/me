@@ -139,6 +139,15 @@ figcaption {
   margin-top: 0.7em;
 }
 figcaption a { text-decoration: none; }
+/* freccia nelle didascalie che porta alla voce corrispondente (per esempio un workshop) */
+.jump { display: inline-block; padding: 0 0.15em; }
+/* la voce di arrivo si ferma in cima alla pagina e arriva sfocata (come un link all'hover), poi torna nitida */
+.entries p[id] { scroll-margin-top: calc(var(--pad) * 1.35); }   /* stessa altezza del tuo nome in alto a sinistra */
+.entries p.arrived { animation: arrived 1.2s ease-out .6s both; }   /* la classe la mette script.js a ogni clic */
+@keyframes arrived {
+  from { filter: blur(1.5px); }
+  to   { filter: blur(0); }
+}
 
 /* ---------------- progetti ---------------- */
 .project { margin-bottom: calc(var(--line) * 5); }

@@ -195,7 +195,7 @@ document.querySelectorAll('.marquee').forEach((marquee) => {
   // il testo viene da data-caption, oppure dalla didascalia già scritta sotto la foto (collage, libreria)
   const captionFor = (el) => {
     const own = el.dataset.caption || el.closest('figure')?.querySelector('figcaption')?.textContent || '';
-    const text = own.replace(/[\s\u00a0↗]+$/, '');
+    const text = own.replace(/[\s\u00a0↗↓]+$/, '');
     const project = el.closest('.project');
     const link = project && document.querySelector(`.menu a[href="#${project.id}"]`);
     if (!link) return text;
@@ -458,3 +458,20 @@ document.querySelectorAll('.marquee').forEach((marquee) => {
   }, { passive: true, capture: true });
   document.addEventListener('click', hide);   // per esempio quando apri una foto
 })();
+
+// ---------- Frecce nelle didascalie che portano a una voce della pagina (class="jump") ----------
+// Scorre fino alla voce senza cambiare l'indirizzo della pagina, e a ogni clic fa ripartire l'animazione di arrivo.
+document.querySelectorAll('a.jump').forEach((link) => {
+  link.addEventListener('click', (e) => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    target.classList.remove('arrived');
+    void target.offsetWidth;   // fa ripartire l'animazione anche se eri già arrivata qui
+    target.classList.add('arrived');
+  });
+});
+document.addEventListener('animationend', (e) => {
+  if (e.animationName === 'arrived') e.target.classList.remove('arrived');
+});
