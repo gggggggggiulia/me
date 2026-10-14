@@ -250,11 +250,20 @@ figcaption a { text-decoration: none; }
   transition: opacity .4s;
 }
 .lightbox.is-open::before { opacity: 1; }
+.lightbox { --cap-space: 34px; }   /* spazio sotto la foto per la didascalia */
+/* foto + didascalia: la didascalia sta sotto, allineata al bordo sinistro della foto */
+.lb-stage {
+  position: relative;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 .lightbox img,
 .lightbox video {
   position: relative;
   /* la foto occupa lo spazio disponibile mantenendo le proporzioni (--r la imposta script.js) */
-  width: min(calc(100vw - 180px), calc((100vh - 80px) * var(--r, 1.5)));
+  width: min(calc(100vw - 180px), calc((100vh - 80px - var(--cap-space)) * var(--r, 1.5)));
   height: auto;
   user-select: none;
   -webkit-user-drag: none;
@@ -293,7 +302,7 @@ html.lb-lock { overflow: hidden; }
   padding: 0.35em 0.6em;
   background: /* rgba(244, 244, 244, 1) */ var(--bg);
   /* -webkit-backdrop-filter: blur(8px) */;
-  backdrop-filter: blur(8px);
+  /* backdrop-filter: blur(8px); */
   color: #6b6b6b;
   font-family: var(--font-mono);
   font-size: var(--fs-small);
@@ -306,8 +315,11 @@ html.lb-lock { overflow: hidden; }
 }
 .tooltip.is-on { opacity: 1; filter: blur(0); transition-duration: .35s; }
 /* le lettere vanno a fuoco una dopo l'altra (18ms di distanza, al massimo mezzo secondo in tutto) */
-.tooltip span { display: inline-block; white-space: pre; }
-.tooltip.is-on span {
+/* ogni parola resta intera; ogni lettera è uno span che va a fuoco per conto suo */
+.word { white-space: nowrap; }
+.word > span { display: inline-block; }
+.tooltip.is-on .word > span,
+.lb-caption.is-on .word > span {
   animation: tip-focus .5s cubic-bezier(.2, .7, .2, 1) both;
   animation-delay: min(calc(var(--i) * 18ms), 500ms);
 }
@@ -315,7 +327,26 @@ html.lb-lock { overflow: hidden; }
   from { opacity: 0; filter: blur(4px); }
   to   { opacity: 1; filter: blur(0); }
 }
-@media (prefers-reduced-motion: reduce) { .tooltip.is-on span { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .tooltip.is-on .word > span, .lb-caption.is-on .word > span { animation: none; } }
+
+/* didascalia sotto la foto aperta a schermo intero: stesso stile e stessa messa a fuoco del tooltip */
+.lb-caption {
+  position: relative;
+  height: var(--cap-space);
+  padding-top: 0.7em;
+  color: #6b6b6b;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  width: 0;
+  min-width: 100%;   /* larga quanto la foto, non di più: se è lunga va a capo */
+  opacity: 0;
+  filter: blur(6px);
+  transition: opacity .25s, filter .25s;
+}
+.lb-caption.is-on { opacity: 1; filter: blur(0); }
+.lb-caption.is-on .word > span { animation-delay: calc(var(--cap-delay, 0ms) + min(calc(var(--i) * 18ms), 500ms)); }
 
 /* ---------------- mobile ---------------- */
 @media (max-width: 768px) {
@@ -360,6 +391,7 @@ html.lb-lock { overflow: hidden; }
   .project { margin-bottom: calc(var(--line) * 4); }
   .project-head, .project-meta { grid-template-columns: 1fr; row-gap: 0.4em; }
   .shelf { gap: 10px; }
-  .lightbox img, .lightbox video { width: min(100vw, calc((100vh - 140px) * var(--r, 1.5))); }
+  .lightbox img, .lightbox video { width: min(100vw, calc((100vh - 140px - var(--cap-space)) * var(--r, 1.5))); }
+  .lb-caption { padding-left: var(--pad); padding-right: var(--pad); }
   .lb-prev, .lb-next { top: auto; bottom: 20px; transform: none; }
 }

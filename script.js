@@ -1,5 +1,29 @@
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// Scrive un testo lettera per lettera (ogni lettera è uno span), così il CSS le fa andare a fuoco una dopo l'altra.
+// Usato dal tooltip e dalla didascalia della foto aperta.
+// Le parole restano intere, così se serve il testo va a capo tra una parola e l'altra.
+function spellOut(el, text) {
+  el.innerHTML = '';
+  let i = 0;
+  text.split(' ').forEach((word, w) => {
+    if (w) el.append(' ');
+    const wordEl = document.createElement('span');
+    wordEl.className = 'word';
+    [...word].forEach((ch) => {
+      const s = document.createElement('span');
+      s.textContent = ch;
+      s.style.setProperty('--i', i++);
+      wordEl.appendChild(s);
+    });
+    el.appendChild(wordEl);
+    i++;   // anche lo spazio conta nel ritmo
+  });
+  el.classList.remove('is-on');
+  void el.offsetWidth;   // fa ripartire l'animazione
+  el.classList.add('is-on');
+}
+
 // ---------- Trascinamento col mouse ----------
 // Su telefono e trackpad lo scorrimento è già nativo; questo aggiunge il "tieni premuto e trascina" col mouse.
 // onMove/onEnd ricevono lo spostamento e la velocità (px/ms) del gesto.
@@ -154,22 +178,46 @@ document.querySelectorAll('.marquee').forEach((marquee) => {
   const lb = document.createElement('div');
   lb.className = 'lightbox';
   lb.innerHTML = `
-    <img alt="">
-    <video muted autoplay loop playsinline hidden></video>
+    <figure class="lb-stage">
+      <img alt="">
+      <video muted autoplay loop playsinline hidden></video>
+      <figcaption class="lb-caption"></figcaption>
+    </figure>
     <button class="lb-btn lb-close" aria-label="Chiudi">${icon('M3 3l10 10M13 3L3 13')}</button>
     <button class="lb-btn lb-prev" aria-label="Precedente">${icon('M10 3L5 8l5 5')}</button>
     <button class="lb-btn lb-next" aria-label="Successiva">${icon('M6 3l5 5-5 5')}</button>`;
   document.body.appendChild(lb);
   const big = lb.querySelector('img');
   const bigVideo = lb.querySelector('video');
+  const caption = lb.querySelector('.lb-caption');
+
+  // didascalia: "01 Substrata — leaf spray silhouette"
+  // il testo viene da data-caption, oppure dalla didascalia già scritta sotto la foto (collage, libreria)
+  const captionFor = (el) => {
+    const own = el.dataset.caption || el.closest('figure')?.querySelector('figcaption')?.textContent || '';
+    const text = own.replace(/[\s\u00a0↗]+$/, '');
+    const project = el.closest('.project');
+    const link = project && document.querySelector(`.menu a[href="#${project.id}"]`);
+    if (!link) return text;
+    const num = link.querySelector('.num')?.textContent || '';
+    const name = link.textContent.slice(num.length).trim();
+    return [`${num} ${name}`.trim(), text].filter(Boolean).join(' — ');
+  };
   let group = [], index = 0;
 
   // la foto aperta "vola" da dov'era nella pagina fino al centro dello schermo, e torna indietro quando chiudi
   const FLY = { duration: 450, easing: 'cubic-bezier(.2, .7, .2, 1)' };
   const media = () => (big.hidden ? bigVideo : big);
-  const ready = (el) => (el.tagName === 'VIDEO'
-    ? (el.readyState >= 1 ? Promise.resolve() : new Promise((r) => el.addEventListener('loadedmetadata', r, { once: true })))
-    : el.decode().catch(() => {}));
+  // aspetta che la foto o il video siano pronti; se non arrivano (errore, rete lenta) dopo 3 secondi va avanti comunque
+  const ready = (el) => {
+    const loaded = el.tagName === 'VIDEO'
+      ? (el.readyState >= 1 ? Promise.resolve() : new Promise((r) => {
+          el.addEventListener('loadedmetadata', r, { once: true });
+          el.addEventListener('error', r, { once: true });
+        }))
+      : el.decode().catch(() => {});
+    return Promise.race([loaded, new Promise((r) => setTimeout(r, 3000))]);
+  };
   // movimento dalla posizione "from" (la foto piccola) a quella grande
   const flight = (el, from) => {
     const to = el.getBoundingClientRect();
@@ -193,7 +241,7 @@ document.querySelectorAll('.marquee').forEach((marquee) => {
     const n = ++shown;
     big.hidden = isVideo;
     bigVideo.hidden = !isVideo;
-    if (isVideo) { bigVideo.src = el.currentSrc || el.src; bigVideo.play(); }
+    if (isVideo) { bigVideo.src = el.currentSrc || el.src; bigVideo.play().catch(() => {}); }
     else { bigVideo.pause(); big.src = el.dataset.full || el.currentSrc || el.src; big.alt = el.alt; }
     const m = media();
     m.style.visibility = 'hidden';
@@ -202,6 +250,7 @@ document.querySelectorAll('.marquee').forEach((marquee) => {
     const w = m.naturalWidth || m.videoWidth, h = m.naturalHeight || m.videoHeight;
     if (w && h) m.style.setProperty('--r', w / h);   // proporzioni della foto, usate dal CSS
     m.style.visibility = '';
+    spellOut(caption, captionFor(el));
     return true;
   };
   const open = async (imgs, i, from = imgs[i]) => {
@@ -210,11 +259,13 @@ document.querySelectorAll('.marquee').forEach((marquee) => {
     lb.classList.add('is-visible', 'is-open');
     document.documentElement.classList.add('lb-lock');
     const start = from.getBoundingClientRect();
+    lb.style.setProperty('--cap-delay', reduceMotion ? '0ms' : '250ms');   // la didascalia aspetta che la foto sia quasi arrivata
     if (await show(i) && !reduceMotion) media().animate(flight(media(), start), FLY);
   };
   const close = async () => {
     if (!lb.classList.contains('is-open')) return;
     lb.classList.remove('is-open');   // lo sfocato sparisce piano
+    caption.classList.remove('is-on');
     follow(0);
     const m = media(), el = group[index];
     const anim = !reduceMotion && onScreen(el)
@@ -239,6 +290,8 @@ document.querySelectorAll('.marquee').forEach((marquee) => {
     offset = 0;
     if (busy || group.length < 2 || !lb.classList.contains('is-open')) return;
     busy = true;
+    caption.classList.remove('is-on');   // la didascalia sparisce insieme alla foto
+    lb.style.setProperty('--cap-delay', '0ms');
     try {
       if (!reduceMotion) await media().animate(FADE, { duration: 250, easing: 'ease-in', fill: 'forwards' }).finished;
       big.getAnimations().forEach((a) => a.cancel());
@@ -259,7 +312,7 @@ document.querySelectorAll('.marquee').forEach((marquee) => {
   let dragged = false;   // dopo un trascinamento il click non chiude
   lb.addEventListener('click', (e) => {
     if (dragged) { dragged = false; return; }
-    if (e.target === lb) close();
+    if (!e.target.closest('img, video, .lb-btn')) close();   // click fuori dalla foto: chiude
   });
   document.addEventListener('keydown', (e) => {
     if (!lb.classList.contains('is-open')) return;
@@ -373,18 +426,9 @@ document.querySelectorAll('.marquee').forEach((marquee) => {
   const show = (el) => {
     current = el;
     // ogni lettera è uno span, così può andare a fuoco per conto suo
-    tip.innerHTML = '';
-    [...el.dataset.caption].forEach((ch, i) => {
-      const s = document.createElement('span');
-      s.textContent = ch;
-      s.style.setProperty('--i', i);
-      tip.appendChild(s);
-    });
-    tip.classList.remove('is-on');
-    void tip.offsetWidth;   // fa ripartire l'animazione
+    spellOut(tip, el.dataset.caption);
     [x, y] = target();      // compare già al suo posto, senza scivolare da dov'era prima
     tip.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-    tip.classList.add('is-on');
   };
   const hide = () => { current = null; tip.classList.remove('is-on'); };
   // cambia didascalia solo se è davvero un'altra (nei caroselli la stessa foto può essere una copia)
