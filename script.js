@@ -339,3 +339,78 @@ document.querySelectorAll('.marquee').forEach((marquee) => {
     });
   });
 })();
+
+// ---------- Tooltip: la didascalia (data-caption) compare in basso a destra del cursore ----------
+// Solo con il mouse: sul telefono non c'è hover.
+(() => {
+  if (!matchMedia('(hover: hover)').matches) return;
+  const tip = document.createElement('div');
+  tip.className = 'tooltip';
+  tip.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(tip);
+
+  const GAP_X = 10, GAP_Y = 16;   // distanza dal cursore
+  let mx = 0, my = 0, x = 0, y = 0, current = null, raf = null;
+
+  // dove va il tooltip: in basso a destra, ma se esce dallo schermo passa dall'altra parte
+  const target = () => {
+    const w = tip.offsetWidth, h = tip.offsetHeight;
+    let tx = mx + GAP_X, ty = my + GAP_Y;
+    if (tx + w > innerWidth - 8) tx = mx - GAP_X - w;
+    if (ty + h > innerHeight - 8) ty = my - GAP_Y / 2 - h;
+    return [tx, ty];
+  };
+  // segue il cursore con un leggero ritardo morbido
+  const follow = () => {
+    const [tx, ty] = target();
+    x += (tx - x) * 0.35;
+    y += (ty - y) * 0.35;
+    tip.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.3 ? requestAnimationFrame(follow) : null;
+  };
+  const move = () => { if (!raf) raf = requestAnimationFrame(follow); };
+
+  const show = (el) => {
+    current = el;
+    // ogni lettera è uno span, così può andare a fuoco per conto suo
+    tip.innerHTML = '';
+    [...el.dataset.caption].forEach((ch, i) => {
+      const s = document.createElement('span');
+      s.textContent = ch;
+      s.style.setProperty('--i', i);
+      tip.appendChild(s);
+    });
+    tip.classList.remove('is-on');
+    void tip.offsetWidth;   // fa ripartire l'animazione
+    [x, y] = target();      // compare già al suo posto, senza scivolare da dov'era prima
+    tip.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    tip.classList.add('is-on');
+  };
+  const hide = () => { current = null; tip.classList.remove('is-on'); };
+  // cambia didascalia solo se è davvero un'altra (nei caroselli la stessa foto può essere una copia)
+  const update = (el) => {
+    if (el === current) return;
+    if (el && current && el.dataset.caption === current.dataset.caption) { current = el; return; }
+    if (el) show(el); else hide();
+  };
+
+  // niente tooltip con una foto aperta o mentre trascini un carosello
+  const blocked = (e) => document.documentElement.classList.contains('lb-lock') || e.buttons > 0;
+
+  document.addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'mouse') return;
+    mx = e.clientX; my = e.clientY;
+    const el = blocked(e) ? null : e.target.closest('[data-caption]');
+    update(el);
+    if (current) move();
+  }, { passive: true });
+  document.documentElement.addEventListener('pointerleave', hide);
+  window.addEventListener('blur', hide);
+  // se la pagina o un carosello scorrono sotto il cursore fermo, l'immagine sotto può cambiare
+  document.addEventListener('scroll', () => {
+    const under = document.elementFromPoint(mx, my);
+    const el = under && !document.documentElement.classList.contains('lb-lock') ? under.closest('[data-caption]') : null;
+    update(el);
+  }, { passive: true, capture: true });
+  document.addEventListener('click', hide);   // per esempio quando apri una foto
+})();
