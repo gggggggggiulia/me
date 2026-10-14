@@ -283,6 +283,40 @@ figcaption a { text-decoration: none; }
 .lightbox.single .lb-prev, .lightbox.single .lb-next { display: none; }
 html.lb-lock { overflow: hidden; }
 
+/* ---------------- tooltip: didascalia che segue il cursore sulle foto (data-caption) ---------------- */
+.tooltip {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 90;
+  pointer-events: none;
+  padding: 0.35em 0.6em;
+  background: /* rgba(244, 244, 244, 1) */ var(--bg);
+  /* -webkit-backdrop-filter: blur(8px) */;
+  backdrop-filter: blur(8px);
+  color: #6b6b6b;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  opacity: 0;
+  filter: blur(6px);
+  transition: opacity .2s, filter .2s;
+}
+.tooltip.is-on { opacity: 1; filter: blur(0); transition-duration: .35s; }
+/* le lettere vanno a fuoco una dopo l'altra (18ms di distanza, al massimo mezzo secondo in tutto) */
+.tooltip span { display: inline-block; white-space: pre; }
+.tooltip.is-on span {
+  animation: tip-focus .5s cubic-bezier(.2, .7, .2, 1) both;
+  animation-delay: min(calc(var(--i) * 18ms), 500ms);
+}
+@keyframes tip-focus {
+  from { opacity: 0; filter: blur(4px); }
+  to   { opacity: 1; filter: blur(0); }
+}
+@media (prefers-reduced-motion: reduce) { .tooltip.is-on span { animation: none; } }
+
 /* ---------------- mobile ---------------- */
 @media (max-width: 768px) {
   :root {
