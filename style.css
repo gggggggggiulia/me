@@ -94,7 +94,7 @@ strong, .strong { font-weight: 600; }
 .right {
   margin-left: var(--split);
   /* allinea "Me /" con il menu a sinistra */
-  padding: calc(var(--pad) * 1.35 + var(--line) * 2) var(--pad) 40vh 0;
+  padding: calc(var(--pad) * 1.35 + var(--line) * 2) var(--pad) calc(var(--line) * 2) 0;
 }
 
 .block { margin-bottom: calc(var(--line) * 2); }
@@ -224,7 +224,7 @@ figcaption a { text-decoration: none; }
 
 .shelf {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 2.85%;
   margin-top: var(--line);
   align-items: start;
@@ -399,7 +399,7 @@ html.lb-lock { overflow: hidden; }
 
   .project { margin-bottom: calc(var(--line) * 4); }
   .project-head, .project-meta { grid-template-columns: 1fr; row-gap: 0.4em; }
-  .shelf { gap: 10px; }
+  .shelf { grid-template-columns: repeat(2, 1fr); gap: 0 10px; }
   .lightbox img, .lightbox video { width: min(100vw, calc((100vh - 140px - var(--cap-space)) * var(--r, 1.5))); }
   .lb-caption { padding-left: var(--pad); padding-right: var(--pad); }
   .lb-prev, .lb-next { top: auto; bottom: 20px; transform: none; }
